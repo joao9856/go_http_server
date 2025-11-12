@@ -9,6 +9,9 @@ func main() {
 	const port = "8080"
 
 	mux := http.NewServeMux()
+	dir := http.Dir(".")
+	fileServer := http.FileServer(dir)
+	mux.Handle("/", fileServer)
 
 	server := &http.Server{
 		Addr: ":" + port,
