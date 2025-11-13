@@ -6,10 +6,11 @@ import (
 )
 
 func main() {
+	const rootDir = "."
 	const port = "8080"
 
 	mux := http.NewServeMux()
-	dir := http.Dir(".")
+	dir := http.Dir(rootDir)
 	fileServer := http.FileServer(dir)
 	mux.Handle("/", fileServer)
 
@@ -18,6 +19,6 @@ func main() {
 		Handler: mux,
 	}
 
-	log.Printf("Serving on port: %s\n", port)
+	log.Printf("Serving files from %s on port: %s\n",rootDir, port)
 	log.Fatal(server.ListenAndServe())
 }
